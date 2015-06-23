@@ -12,6 +12,7 @@
 
 - (NSString *)encode:(NSString *)string offset:(int)offset;
 - (NSString *)decode:(NSString *)string offset:(int)offset;
+- (BOOL)codeBreaker:(NSString *)string1:(NSString *)string2:(int)offset1:(int)offset2;
 
 @end
 
@@ -48,6 +49,12 @@
 
 - (NSString *)decode:(NSString *)string offset:(int)offset {
     return [self encode:string offset: (26 - offset)];
+}
+
+- (BOOL)codeBreaker:(NSString *)string1:(NSString *)string2:(int)offset1:(int)offset2 {
+    
+    BOOL result = YES;
+    return result;
 }
 
 @end
