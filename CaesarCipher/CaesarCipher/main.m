@@ -12,8 +12,7 @@
 
 - (NSString *)encode:(NSString *)string offset:(int)offset;
 - (NSString *)decode:(NSString *)string offset:(int)offset;
-- (BOOL)codeBreaker:(NSString *)string1:(NSString *)string2:(int)offset1:(int)offset2;
-
+- (BOOL)codeBreaker:(NSString *)string1 withStrings:(NSString *)string2;
 @end
 
 
@@ -51,9 +50,31 @@
     return [self encode:string offset: (26 - offset)];
 }
 
-- (BOOL)codeBreaker:(NSString *)string1:(NSString *)string2:(int)offset1:(int)offset2 {
+- (BOOL)codeBreaker:(NSString *)string1 withStrings:(NSString *)string2 {
     
-    BOOL result = YES;
+    BOOL result = NO;
+    
+    for (int i = 1; i <= 25; i++) {
+        
+        NSString * decodedString = [self decode:string1 offset:i];
+        
+        for (int j = 1; j <= 25; j++) {
+            
+            NSString * decodedString2 = [self decode:string2 offset:j];
+            
+            if ([decodedString isEqualToString:decodedString2]) {
+                
+                result = YES;
+                
+                NSLog(@"%@ decoded is %@ using offset %d", string1, decodedString, i);
+                
+                NSLog(@"%@ decoded is %@ using offset %d", string2, decodedString2, j);
+               
+                return result;
+            }
+        }
+    }
+    
     return result;
 }
 
@@ -62,6 +83,16 @@
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
+        CaesarCipher *cipherInstance = [[CaesarCipher alloc]init];
+        
+        NSString *mike = @"mike";
+        NSString *eric = @"eric";
+        NSString *encodedMike1 = [cipherInstance encode:mike offset:2];
+        NSString *encodedMike2 = [cipherInstance encode:eric offset:3];
+        
+        BOOL isSameMessage = [cipherInstance codeBreaker:encodedMike1 withStrings:encodedMike2];
+        
+        NSLog(@"Are these two ciphers the same message? %s", isSameMessage ? "YES":"NO");
         
     }
 }

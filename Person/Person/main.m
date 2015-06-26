@@ -81,6 +81,11 @@
     
 }
 
+- (void)printName {
+    NSString *personName = self.name;
+    NSLog(@"Name: %@", personName);
+}
+
 @end
 
 
@@ -91,6 +96,8 @@ int main(int argc, const char * argv[]) {
         
         Person *person = [[Person alloc] init];
         [person setName:@"Robert"];
+        
+        [person printName];
         
         NSLog(@"He lives in New York City and has his own phone number.");
         [person setCity:@"New York City"];
